@@ -5,7 +5,7 @@ var Appointment = require('./appointment.model');
 
 // Get list of appointments
 exports.index = function(req, res) {
-  Appointment.find(function (err, appointments) {
+  Appointment.find(req.query, function (err, appointments) {
     if(err) { return handleError(res, err); }
     return res.json(200, appointments);
   });

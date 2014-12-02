@@ -56,6 +56,13 @@ User.find({}).remove(function() {
             active: true,
             type: 'school',
             owner: data._id
+          }, {
+            name: "CanCun",
+            info: "Its burrito time",
+            defaultDuration: 60,
+            active: true,
+            type: 'restaurant',
+            owner: data._id
           }, function(){
             Business.find(function(err, data) {
               var owner = data[0].owner;

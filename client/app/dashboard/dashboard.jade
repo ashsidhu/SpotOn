@@ -12,6 +12,15 @@ div(ng-include='"components/navbar/navbar.html"')
         p.input-group
           .appointment-datepicker
             .well.well-sm
+              //- options for business type
+              .list-group
+                a.list-group-item(ng-repeat="business in businesss", href="", ng-click="selectBusiness(business._id)", ng-class="{'active':business._id===selectedBusiness}")
+                  h4.list-group-item-heading
+                    {{business.name}}
+                  p.list-group-item-text
+                    {{business.info}}
+
+            .well.well-sm(ng-show="!!selectedBusiness")
               datepicker(ng-model="newAppointmentTimestamp", min-date="minDate")
               timepicker(ng-model="newAppointmentTimestamp", minute-step="30")
           span.input-group-btn

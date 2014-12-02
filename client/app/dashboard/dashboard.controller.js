@@ -2,12 +2,36 @@
 
 angular.module('spotOnApp')
   .controller('DashboardCtrl', function ($scope, $http) {
-    $scope.appointments = [];
+    // instantiate and populate businesss
+    $scope.businesss = [];
 
-    $http.get('/api/appointments').success(function(appointments) {
-      $scope.appointments = appointments;
+    $http.get('/api/businesss').success(function(businesss) {
+      $scope.businesss = businesss;
+      console.log(businesss)
     });
 
+    $scope.selectBusiness = function(id){
+      $scope.selectedBusiness = ($scope.selectedBusiness===id) ? null : id;
+      $scope.getAppointmentsForBusiness();
+    };
+    $scope.selectedBusiness = null;
+
+
+    // instantiate and populate appointments
+    $scope.appointments = [];
+
+    $scope.getAppointmentsForBusiness = function () {
+      if ($scope.selectedBusiness) {
+        $http.get('/api/appointments/?_businessId=' + $scope.selectedBusiness).success(function(appointments) {
+          $scope.appointments = appointments;
+        });
+      } else {
+        $scope.appointments = [];
+      }
+    };
+
+
+    // date functionality
     $scope.today = function () {
       $scope.newAppointmentTimestamp = new Date();
     };
@@ -25,7 +49,10 @@ angular.module('spotOnApp')
       if(!$scope.newAppointmentTimestamp) {
         return;
       }
-      $http.post('/api/appointments', { dueDate: $scope.newAppointmentTimestamp });
+      $http.post('/api/appointments', { 
+        dueDate: $scope.newAppointmentTimestamp,
+        _businessId: $scope.selectedBusiness
+      });
     };
 
     $scope.deleteAppointment = function(appointment) {

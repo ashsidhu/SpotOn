@@ -55,19 +55,19 @@ User.find({}).remove(function() {
             defaultDuration: 60,
             active: true,
             type: 'school',
-            owner: data._id
+            _ownerId: data._id
           }, {
             name: "CanCun",
             info: "Its burrito time",
             defaultDuration: 60,
             active: true,
             type: 'restaurant',
-            owner: data._id
+            _ownerId: data._id
           }, function(){
             Business.find(function(err, data) {
-              var owner = data[0].owner;
-              // console.log('business', owner);
-              User.find({_id: owner}, function (err, data){
+              var _ownerId = data[0]._ownerId;
+              // console.log('business', _ownerId);
+              User.find({_id: _ownerId}, function (err, data){
                 // console.log('user from business', data)
               });
             })

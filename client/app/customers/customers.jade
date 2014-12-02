@@ -1,4 +1,21 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-.col-md-12
-    | This is the customers view.
+.container
+  .row
+    .col-lg-12
+      h1.page-header Your Customer Appointments:
+      .well.well-sm
+        h4 Select a business to view appointments
+        .list-group
+          a.list-group-item(ng-repeat="business in userBusinesses", href="", ng-click="selectBusiness(business._id)", ng-class="{'active':business._id===selectedBusiness}")
+            h4.list-group-item-heading
+              {{business.name}}
+
+      .well.well-sm(ng-show="!!selectedBusiness")
+        datepicker(ng-model="selectedDate", min-date="minDate", ng-click="populateBookedTimeSlots()")
+        
+        a.list-group-item(ng-repeat="timeSlot in timeSlots", href="", ng-click="setAppointmentTime(timeSlot)", ng-class="{'active':timeSlot===selectedTimeSlot, 'disabled':(bookedTimeSlots.indexOf(timeSlot) > -1)}")
+          h4.list-group-item-heading
+            {{timeSlot % 12 || 12}} {{$index > 2 ? 'PM' : 'AM'}}
+          p.list-group-item-text
+            {{(bookedTimeSlots.indexOf(timeSlot) === -1) ? "Free" : "Busy"}}

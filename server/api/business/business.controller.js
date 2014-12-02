@@ -5,7 +5,7 @@ var Business = require('./business.model');
 
 // Get list of businesss
 exports.index = function(req, res) {
-  Business.find(function (err, businesss) {
+  Business.find(req.query, function (err, businesss) {
     if(err) { return handleError(res, err); }
     return res.json(200, businesss);
   });

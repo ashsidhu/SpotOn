@@ -30,18 +30,29 @@ angular.module('spotOnApp')
       if ($scope.selectedBusiness) {
         $http.get('/api/appointments/?_businessId=' + $scope.selectedBusiness).success(function(appointments) {
           $scope.selectedBusinessAppointments = appointments;
+          $scope.populateBookedTimeSlots();
         });
       } else {
         $scope.selectedBusinessAppointments = [];
       }
     };
 
+    $scope.bookedTimeSlots = [];
+    $scope.populateBookedTimeSlots = function() {
+      $scope.bookedTimeSlots = $scope.selectedBusinessAppointments.filter(function(appointment){
+        return ((new Date(appointment.dueDate)).toDateString() === $scope.newAppointmentTimestamp.toDateString());
+      }).map(function(appointment) {
+        return (new Date(appointment.dueDate)).getHours();
+      });
+      console.log($scope.bookedTimeSlots);
+    }
+
     $scope.timeSlots = [9, 10, 11, 12, 13, 14, 15, 16];
 
     $scope.selectedTimeSlot = null;
 
     $scope.setAppointmentTime = function (timeSlot) {
-      if (timeSlot !== $scope.selectedTimeSlot) {
+      if (timeSlot !== $scope.selectedTimeSlot && ($scope.bookedTimeSlots.indexOf(timeSlot) === -1)) {
         $scope.newAppointmentTimestamp.setHours(timeSlot);
         $scope.selectedTimeSlot = timeSlot;
       } else {

@@ -25,9 +25,9 @@ div(ng-include='"components/navbar/navbar.html"')
                     {{business.info}}
 
             .well.well-sm(ng-show="!!selectedBusiness")
-              datepicker(ng-model="newAppointmentTimestamp", min-date="minDate")
+              datepicker(ng-model="newAppointmentTimestamp", min-date="minDate", ng-click="populateBookedTimeSlots()")
               .list-group
-                a.list-group-item(ng-repeat="timeSlot in timeSlots", href="", ng-click="setAppointmentTime(timeSlot)", ng-class="{'active':timeSlot===selectedTimeSlot}")
+                a.list-group-item(ng-repeat="timeSlot in timeSlots", href="", ng-click="setAppointmentTime(timeSlot)", ng-class="{'active':timeSlot===selectedTimeSlot, 'disabled':(bookedTimeSlots.indexOf(timeSlot) > -1)}")
                   h4.list-group-item-heading
                     {{timeSlot % 12 || 12}} {{$index > 2 ? 'PM' : 'AM'}}
                   p.list-group-item-text

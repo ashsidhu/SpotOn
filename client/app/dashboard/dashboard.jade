@@ -11,8 +11,8 @@ div(ng-include='"components/navbar/navbar.html"')
               {{appointment.dueDate}}
   .row
     .col-lg-12
+      h3 Add an appointment
       form.appointment-form
-        label Add an appointment
         p.input-group
           .appointment-datepicker
             .well.well-sm
@@ -26,9 +26,15 @@ div(ng-include='"components/navbar/navbar.html"')
 
             .well.well-sm(ng-show="!!selectedBusiness")
               datepicker(ng-model="newAppointmentTimestamp", min-date="minDate")
-              timepicker(ng-model="newAppointmentTimestamp", minute-step="30")
-          span.input-group-btn
-            button.btn.btn-primary(type='submit', ng-click='addAppointment()') Add New Appointment
+              .list-group
+                a.list-group-item(ng-repeat="timeSlot in timeSlots", href="", ng-click="setAppointmentTime(timeSlot)", ng-class="{'active':timeSlot===selectedTimeSlot}")
+                  h4.list-group-item-heading
+                    {{timeSlot % 12 || 12}} {{$index > 2 ? 'PM' : 'AM'}}
+                  p.list-group-item-text
+                    | Book
+                    
+              span.input-group-btn
+                button.btn.btn-primary(type='submit', ng-click='addAppointment()', ng-disabled='!selectedTimeSlot') Add New Appointment
   
   .row
     .col-lg-12

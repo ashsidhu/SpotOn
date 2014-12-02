@@ -36,7 +36,18 @@ angular.module('spotOnApp')
       }
     };
 
-    
+    $scope.timeSlots = [9, 10, 11, 12, 13, 14, 15, 16];
+
+    $scope.selectedTimeSlot = null;
+
+    $scope.setAppointmentTime = function (timeSlot) {
+      if (timeSlot !== $scope.selectedTimeSlot) {
+        $scope.newAppointmentTimestamp.setHours(timeSlot);
+        $scope.selectedTimeSlot = timeSlot;
+      } else {
+        $scope.selectedTimeSlot = null;
+      }
+    }
 
     // date functionality
     $scope.today = function () {

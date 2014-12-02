@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spotOnApp')
-  .controller('DashboardCtrl', function ($scope, $http) {
+  .controller('DashboardCtrl', function ($scope, $http, Auth) {
     // instantiate and populate businesss
     $scope.businesss = [];
 
@@ -51,7 +51,8 @@ angular.module('spotOnApp')
       }
       $http.post('/api/appointments', { 
         dueDate: $scope.newAppointmentTimestamp,
-        _businessId: $scope.selectedBusiness
+        _businessId: $scope.selectedBusiness,
+        _userId: Auth.getCurrentUser()._id
       });
     };
 

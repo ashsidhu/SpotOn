@@ -8,6 +8,7 @@ var BusinessSchema = new Schema({
   info: String,
   _appointmentIds: [Schema.Types.ObjectId],
   owner: Schema.Types.ObjectId,
+  type: String,
   defaultDuration: Number,
   active: Boolean
 });

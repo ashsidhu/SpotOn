@@ -8,6 +8,7 @@
 var Thing = require('../api/thing/thing.model');
 var Business = require('../api/business/business.model');
 var User = require('../api/user/user.model');
+var Appointment = require('../api/appointment/appointment.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -53,6 +54,7 @@ User.find({}).remove(function() {
             info: "Coding school for the 21st century",
             defaultDuration: 60,
             active: true,
+            type: 'school',
             owner: data._id
           }, function(){
             Business.find(function(err, data) {
@@ -68,3 +70,7 @@ User.find({}).remove(function() {
     }
   );
 });
+
+Appointment.find({}).remove(function() {
+  Appointment.create({dueDate: new Date()})
+})

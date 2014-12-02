@@ -13,7 +13,6 @@ angular.module('spotOnApp')
 
     $http.get('/api/businesss').success(function(businesss) {
       $scope.businesss = businesss;
-      console.log(businesss)
     });
 
     $scope.selectBusiness = function(id){
@@ -44,7 +43,6 @@ angular.module('spotOnApp')
       }).map(function(appointment) {
         return (new Date(appointment.dueDate)).getHours();
       });
-      console.log($scope.bookedTimeSlots);
     }
 
     $scope.timeSlots = [9, 10, 11, 12, 13, 14, 15, 16];

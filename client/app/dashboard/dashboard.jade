@@ -31,7 +31,7 @@ div(ng-include='"components/navbar/navbar.html"')
                   h4.list-group-item-heading
                     {{timeSlot % 12 || 12}} {{$index > 2 ? 'PM' : 'AM'}}
                   p.list-group-item-text
-                    | Book
+                    {{(bookedTimeSlots.indexOf(timeSlot) === -1) ? "Book Appointment" : "Not Available"}}
                     
               span.input-group-btn
                 button.btn.btn-primary(type='submit', ng-click='addAppointment()', ng-disabled='!selectedTimeSlot') Add New Appointment

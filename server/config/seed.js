@@ -6,6 +6,7 @@
 'use strict';
 
 var Thing = require('../api/thing/thing.model');
+var Business = require('../api/business/business.model');
 var User = require('../api/user/user.model');
 
 Thing.find({}).remove(function() {
@@ -39,11 +40,31 @@ User.find({}).remove(function() {
   }, {
     provider: 'local',
     role: 'admin',
-    name: 'Admin',
+    name: 'Admin yo',
     email: 'admin@admin.com',
     password: 'admin'
   }, function() {
-      console.log('finished populating users');
+      // console.log('finished populating users');
+      User.findOne(function(err, data){
+        // console.log('user id', data._id);
+        Business.find({}).remove(function() {
+          Business.create({
+            name: "Hack Reactor",
+            info: "Coding school for the 21st century",
+            defaultDuration: 60,
+            active: true,
+            owner: data._id
+          }, function(){
+            Business.find(function(err, data) {
+              var owner = data[0].owner;
+              // console.log('business', owner);
+              User.find({_id: owner}, function (err, data){
+                // console.log('user from business', data)
+              });
+            })
+          });
+        });
+      });
     }
   );
 });

@@ -16,8 +16,15 @@ var UserSchema = new Schema({
   provider: String,
   salt: String,
   google: {},
-  github: {}
+  github: {},
+
+  _businessIds: [Schema.Types.ObjectId],
+  _appointmentIds: [Schema.Types.ObjectId]
 });
+
+// get all businesses owned by user
+// get all appointments of user
+// get appointments of user with business x
 
 /**
  * Virtuals

@@ -4,7 +4,11 @@ div(ng-include='"components/navbar/navbar.html"')
   .row
     .col-lg-12
       h1.page-header Your Appointments:
-
+      .well.well-sm
+        .list-group
+          a.list-group-item(ng-repeat="appointment in userAppointments", href="")
+            h4.list-group-item-heading
+              {{appointment.dueDate}}
   .row
     .col-lg-12
       form.appointment-form
@@ -12,7 +16,7 @@ div(ng-include='"components/navbar/navbar.html"')
         p.input-group
           .appointment-datepicker
             .well.well-sm
-              //- options for business type
+              //- select options for business type
               .list-group
                 a.list-group-item(ng-repeat="business in businesss", href="", ng-click="selectBusiness(business._id)", ng-class="{'active':business._id===selectedBusiness}")
                   h4.list-group-item-heading

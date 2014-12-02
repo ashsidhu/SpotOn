@@ -2,6 +2,12 @@
 
 angular.module('spotOnApp')
   .controller('DashboardCtrl', function ($scope, $http, Auth) {
+    $scope.userAppointments = [];
+
+    $http.get('/api/appointments/?_userId=' + Auth.getCurrentUser()._id).success(function(appointments) {
+      $scope.userAppointments = appointments;
+    });
+
     // instantiate and populate businesss
     $scope.businesss = [];
 
@@ -18,18 +24,19 @@ angular.module('spotOnApp')
 
 
     // instantiate and populate appointments
-    $scope.appointments = [];
+    $scope.selectedBusinessAppointments = [];
 
     $scope.getAppointmentsForBusiness = function () {
       if ($scope.selectedBusiness) {
         $http.get('/api/appointments/?_businessId=' + $scope.selectedBusiness).success(function(appointments) {
-          $scope.appointments = appointments;
+          $scope.selectedBusinessAppointments = appointments;
         });
       } else {
-        $scope.appointments = [];
+        $scope.selectedBusinessAppointments = [];
       }
     };
 
+    
 
     // date functionality
     $scope.today = function () {

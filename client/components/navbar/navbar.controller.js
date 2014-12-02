@@ -3,8 +3,11 @@
 angular.module('spotOnApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
+      'title': 'Dashboard',
+      'link': '/dashboard'
+    }, {
+      'title': 'Customers',
+      'link': '/customers'
     }];
 
     $scope.isCollapsed = true;

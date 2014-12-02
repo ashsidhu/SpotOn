@@ -1,0 +1,33 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+header#banner.hero-unit
+  .container
+    h1 Spot On
+    p.lead Book appointments instantly
+    //- img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
+
+.container
+  .row
+    .col-lg-12
+      h1.page-header Features:
+      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='thing in awesomeThings')
+        li
+          a(href='#', tooltip='{{thing.info}}')
+            | {{thing.name}}
+            button.close(type='button', ng-click='deleteThing(thing)') ×
+
+  form.thing-form
+    label Add an appointment
+    p.input-group
+      input.form-control(type='text', placeholder='Add a new thing here.', ng-model='newThing')
+      span.input-group-btn
+        button.btn.btn-primary(type='submit', ng-click='addThing()') Add New
+
+footer.footer
+  .container
+    p
+      | Spot On v0.1
+      = ' | '
+      a(href='https://twitter.com/ashsidhu') @ashsidhu
+      = ' | '
+      a(href='https://github.com/ashsidhu/2014-10-solo') Issues

@@ -35,13 +35,13 @@ Thing.find({}).remove(function() {
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
-    name: 'Test User',
+    name: 'Business Owner',
     email: 'test@test.com',
     password: 'test'
   }, {
     provider: 'local',
     role: 'admin',
-    name: 'Admin yo',
+    name: 'Ash',
     email: 'admin@admin.com',
     password: 'admin'
   }, function() {
@@ -62,6 +62,13 @@ User.find({}).remove(function() {
             defaultDuration: 60,
             active: true,
             type: 'restaurant',
+            _ownerId: data._id
+          }, {
+            name: "Public Barber",
+            info: "We turn normal people into hipsters",
+            defaultDuration: 60,
+            active: true,
+            type: 'salon',
             _ownerId: data._id
           }, function(){
             Business.find(function(err, data) {

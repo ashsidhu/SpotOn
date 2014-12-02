@@ -1,2 +1,33 @@
-.col-md-12
-    | This is the dashboard view.
+div(ng-include='"components/navbar/navbar.html"')
+
+.container
+  .row
+    .col-lg-12
+      h1.page-header Your Appointments:
+
+  .row
+    .col-lg-12
+      form.appointment-form
+        label Add an appointment
+        p.input-group
+          .appointment-datepicker
+            .well.well-sm
+              datepicker(ng-model="newAppointmentTimestamp", min-date="minDate")
+              timepicker(ng-model="newAppointmentTimestamp", minute-step="30")
+          span.input-group-btn
+            button.btn.btn-primary(type='submit', ng-click='addAppointment()') Add New Appointment
+  
+  .row
+    .col-lg-12
+      .console
+        {{newAppointmentTimestamp}}
+
+
+footer.footer
+  .container
+    p
+      | Spot On v0.1
+      = ' | '
+      a(href='https://twitter.com/ashsidhu') @ashsidhu
+      = ' | '
+      a(href='https://github.com/ashsidhu/2014-10-solo') Issues

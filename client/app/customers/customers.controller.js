@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('spotOnApp')
-  .controller('CustomersCtrl', function ($scope, $http, Auth) {
+  .controller('CustomersCtrl', function ($scope, $http, Auth, socket) {
     // populate businesses
     $scope.userBusinesses = [];
 
@@ -68,6 +68,22 @@ angular.module('spotOnApp')
           }
         });
       });
+    }
+
+    // sockets for appointments
+    var tempAppointments = [];
+    $http.get('/api/appointments').success(function(appointments) {
+      $scope.tempAppointments = appointments;
+      socket.syncUpdates('appointment', $scope.tempAppointments, onNewAppointment);
+    });
+
+    var onNewAppointment = function (event, item, array) {
+      // if appt.businessId is owned by user
+      var business = _.find($scope.userBusinesses, {_id: item._businessId});
+      if (business) {
+        // alert('new appointment')
+        $scope.getAppointmentsForBusiness();
+      }
     }
 
   });

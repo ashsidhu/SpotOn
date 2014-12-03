@@ -6,9 +6,12 @@ div(ng-include='"components/navbar/navbar.html"')
       h1.page-header Your Appointments:
       .well.well-sm
         .list-group
-          a.list-group-item(ng-repeat="appointment in userAppointments", href="")
+          a.list-group-item(ng-repeat="appointment in userAppointments | orderBy:'dueDate'", href="")
             h4.list-group-item-heading
-              {{appointment.dueDate}}
+              {{businessNames[appointment._businessId]}}
+            p.list-group-item-text
+              {{(appointment.dueDate) | date:'MMM, dd yyyy HH:mm a'}}
+
   .row
     .col-lg-12
       h3 Add an appointment

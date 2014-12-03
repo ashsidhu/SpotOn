@@ -10,9 +10,13 @@ angular.module('spotOnApp')
 
     // instantiate and populate businesss
     $scope.businesss = [];
+    $scope.businessNames = {};
 
     $http.get('/api/businesss').success(function(businesss) {
       $scope.businesss = businesss;
+      businesss.forEach(function(business){
+        $scope.businessNames[business._id] = business.name;
+      })
     });
 
     $scope.selectBusiness = function(id){

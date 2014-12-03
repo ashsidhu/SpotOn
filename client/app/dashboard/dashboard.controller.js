@@ -84,6 +84,11 @@ angular.module('spotOnApp')
         dueDate: $scope.newAppointmentTimestamp,
         _businessId: $scope.selectedBusiness,
         _userId: Auth.getCurrentUser()._id
+      }).success(function(appointment) {
+        $scope.userAppointments.push(appointment);
+        $scope.selectedBusinessAppointments.push(appointment);
+        $scope.populateBookedTimeSlots();
+        $scope.selectedTimeSlot = null;
       });
     };
 

@@ -42,8 +42,8 @@ User.find({}).remove(function() {
   }, {
     provider: 'local',
     role: 'admin',
-    name: 'Ash',
-    email: 'admin@admin.com',
+    name: 'Ash Sidhu',
+    email: 'ashmeet@email.com',
     password: 'admin'
   }, function() {
       // console.log('finished populating users');
@@ -82,6 +82,7 @@ User.find({}).remove(function() {
           });
         });
       });
+      
     }
   );
 });

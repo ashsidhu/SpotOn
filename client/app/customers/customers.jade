@@ -11,11 +11,16 @@ div(ng-include='"components/navbar/navbar.html"')
             h4.list-group-item-heading
               {{business.name}}
 
-      .well.well-sm(ng-show="!!selectedBusiness")
-        datepicker(ng-model="selectedDate", min-date="minDate", ng-click="populateBookedTimeSlots()")
+      .well.well-sm.appointments(ng-show="!!selectedBusiness")
+        datepicker(ng-model="selectedDate", min-date="minDate", ng-click="populateBookedTimeSlots();populateCustomers();")
         
-        a.list-group-item(ng-repeat="timeSlot in timeSlots", href="", ng-click="setAppointmentTime(timeSlot)", ng-class="{'active':timeSlot===selectedTimeSlot, 'disabled':(bookedTimeSlots.indexOf(timeSlot) > -1)}")
+        a.list-group-item(ng-repeat="timeSlot in timeSlots", href="", ng-click="setAppointmentTime(timeSlot)", ng-class="{'active':timeSlot===selectedTimeSlot, 'disabled':(bookedTimeSlots.indexOf(timeSlot) === -1)}")
           h4.list-group-item-heading
             {{timeSlot % 12 || 12}} {{$index > 2 ? 'PM' : 'AM'}}
           p.list-group-item-text
             {{(bookedTimeSlots.indexOf(timeSlot) === -1) ? "Free" : "Busy"}}
+          //- <span class="label label-default">Default</span>
+          .alert.alert-success.pull-right(ng-show="(bookedTimeSlots.indexOf(timeSlot) > -1)") 
+            strong {{crm[timeSlot].name}}
+            br
+            | {{crm[timeSlot].email}}

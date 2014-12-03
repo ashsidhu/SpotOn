@@ -32,6 +32,7 @@ angular.module('spotOnApp')
         $http.get('/api/appointments/?_businessId=' + $scope.selectedBusiness).success(function(appointments) {
           $scope.selectedBusinessAppointments = appointments;
           $scope.populateBookedTimeSlots();
+          $scope.populateCustomers();
         });
       } else {
         $scope.selectedBusinessAppointments = [];
@@ -41,12 +42,31 @@ angular.module('spotOnApp')
     $scope.timeSlots = [9, 10, 11, 12, 13, 14, 15, 16];
     $scope.selectedTimeSlot = null;
     $scope.bookedTimeSlots = [];
+    $scope.crm = {}; // timeslot: customer
 
     $scope.populateBookedTimeSlots = function() {
       $scope.bookedTimeSlots = $scope.selectedBusinessAppointments.filter(function(appointment){
         return ((new Date(appointment.dueDate)).toDateString() === $scope.selectedDate.toDateString());
       }).map(function(appointment) {
         return (new Date(appointment.dueDate)).getHours();
+      });
+    };
+
+    // populate customer info
+    $scope.customers = {};
+    $scope.populateCustomers = function() {
+      $scope.selectedBusinessAppointments.map(function(appointment){
+        return appointment;
+      }).forEach(function(appointment){
+        var timeslot = (new Date(appointment.dueDate)).getHours();
+        var id = appointment._userId;
+        $http.get('/api/users/' + id).success(function(user){
+          console.log(user)
+          $scope.crm[timeslot] = {
+            name: user.name,
+            email: user.email
+          }
+        });
       });
     }
 

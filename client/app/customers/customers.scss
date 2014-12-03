@@ -1,0 +1,12 @@
+.appointments{
+
+  .list-group-item:not(.disabled) {
+    height: 8em;
+    .alert-success {
+      position: absolute;
+      right: 1em;
+      top: 1em;
+      width: 80%;
+    }
+  }
+}
